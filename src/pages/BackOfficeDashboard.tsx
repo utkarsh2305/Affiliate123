@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Navbar } from '@/components/layout/Navbar';
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -12,9 +12,7 @@ export const BackOfficeDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar userType="backoffice" />
-      
+    <DashboardLayout userType="backoffice">
       <div className="px-6 py-8">
         <div className="mb-8">
           <div className="bg-blue-600 text-white p-6 rounded-lg">
@@ -89,6 +87,6 @@ export const BackOfficeDashboard: React.FC = () => {
           </Card>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };

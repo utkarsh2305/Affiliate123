@@ -1,21 +1,19 @@
 
 import React from 'react';
-import { Navbar } from '@/components/layout/Navbar';
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const AdminDashboard: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar userType="admin" />
-      
+    <DashboardLayout userType="admin">
       <div className="px-6 py-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Administrator Dashboard</h1>
           <p className="text-gray-600">Manage, track, and monitor all affiliates and performance.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-8">
           <StatCard
             title="Total Affiliates"
             value={136}
@@ -27,12 +25,6 @@ export const AdminDashboard: React.FC = () => {
             value={1247}
             subtitle="All affiliate orders"
             color="green"
-          />
-          <StatCard
-            title="System Revenue"
-            value="₦12,450,000"
-            subtitle="Total platform revenue"
-            color="purple"
           />
         </div>
 
@@ -82,6 +74,6 @@ export const AdminDashboard: React.FC = () => {
           </Card>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
