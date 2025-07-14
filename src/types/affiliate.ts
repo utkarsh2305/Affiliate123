@@ -11,6 +11,7 @@ export interface Affiliate {
   clicks: number;
   conversions: number;
   conversionRate: number;
+  daysSinceLastOrder?: number;
 }
 
 export interface Order {
@@ -19,9 +20,10 @@ export interface Order {
   customerName: string;
   productName: string;
   orderAmount: number;
-  commissionAmount: number;
-  status: 'Completed' | 'Pending' | 'Cancelled';
+  status: 'Completed' | 'Pending' | 'Processing' | 'Cancelled';
   affiliate: string;
+  retailerId?: string;
+  voucherCode?: string;
 }
 
 export interface Commission {
@@ -41,4 +43,30 @@ export interface UserStats {
   totalConversions: number;
   monthlyEarnings: number;
   weeklyCommissions: number;
+  qualifiedOrdersMTD: number;
+  projectedCommission: number;
+  qualifiedCommission: number;
+  monthlyCommission: number;
+  totalOrders: number;
+  completedOrders: number;
+  pendingOrders: number;
+}
+
+export interface Retailer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  status: 'Active' | 'Inactive';
+  registrationDate: string;
+  affiliateId: string;
+  daysSinceLastOrder: number;
+}
+
+export interface Notice {
+  id: string;
+  title: string;
+  content: string;
+  type: 'info' | 'warning' | 'success';
+  date: string;
 }

@@ -5,12 +5,6 @@ import { StatCard } from '@/components/dashboard/StatCard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const AdminDashboard: React.FC = () => {
-  const recentActivities = [
-    { id: 1, text: 'New Affiliate Registered', time: 'View All' },
-    { id: 2, text: 'Sales Management', time: 'View All' },
-    { id: 3, text: 'User Reports', time: 'View All' }
-  ];
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar userType="admin" />
@@ -21,7 +15,7 @@ export const AdminDashboard: React.FC = () => {
           <p className="text-gray-600">Manage, track, and monitor all affiliates and performance.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <StatCard
             title="Total Affiliates"
             value={136}
@@ -30,51 +24,59 @@ export const AdminDashboard: React.FC = () => {
           />
           <StatCard
             title="Total Orders"
-            value={23}
-            subtitle="25 affiliate orders"
+            value={1247}
+            subtitle="All affiliate orders"
             color="green"
           />
           <StatCard
-            title="Revenue"
-            value="1,247"
-            subtitle="Total affiliate revenue"
+            title="System Revenue"
+            value="₦12,450,000"
+            subtitle="Total platform revenue"
             color="purple"
-          />
-          <StatCard
-            title="Commission Paid"
-            value="₦890,000"
-            subtitle="Current month"
-            color="orange"
           />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>Recent System Activity</CardTitle>
+              <CardTitle>System Statistics</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {recentActivities.map((activity) => (
-                  <div key={activity.id} className="flex items-center justify-between py-2">
-                    <span className="text-sm text-gray-700">{activity.text}</span>
-                    <span className="text-xs text-blue-600 cursor-pointer hover:underline">
-                      {activity.time}
-                    </span>
-                  </div>
-                ))}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Active Affiliates</span>
+                  <span className="text-lg font-bold text-green-600">89</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Pending Applications</span>
+                  <span className="text-lg font-bold text-yellow-600">23</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Total Retailers</span>
+                  <span className="text-lg font-bold">156</span>
+                </div>
               </div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle>Top Performing Affiliates</CardTitle>
+              <CardTitle>Platform Performance</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="text-sm text-gray-500">No affiliate specified at the moment</div>
-                <div className="text-sm text-gray-500">Upgrade your account to add</div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Monthly Growth</span>
+                  <span className="text-lg font-bold text-green-600">+15%</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Order Completion Rate</span>
+                  <span className="text-lg font-bold">94%</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Average Order Value</span>
+                  <span className="text-lg font-bold">₦185,000</span>
+                </div>
               </div>
             </CardContent>
           </Card>

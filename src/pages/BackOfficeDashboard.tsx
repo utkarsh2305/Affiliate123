@@ -6,9 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const BackOfficeDashboard: React.FC = () => {
   const applications = [
-    { id: 1, type: 'Pending Applications', count: 'View All', status: 'Recent Orders' },
-    { id: 2, type: 'Open Tickets', count: 'View All', status: 'New Users' },
-    { id: 3, type: 'Processed Jobs', count: 'View All', status: 'Recently Uploaded' }
+    { id: 1, type: 'Pending Applications', count: 'View All', status: 'New Registrations' },
+    { id: 2, type: 'Open Tickets', count: 'View All', status: 'Support Requests' },
+    { id: 3, type: 'System Updates', count: 'View All', status: 'Recently Updated' }
   ];
 
   return (
@@ -19,27 +19,27 @@ export const BackOfficeDashboard: React.FC = () => {
         <div className="mb-8">
           <div className="bg-blue-600 text-white p-6 rounded-lg">
             <h1 className="text-2xl font-bold mb-2">BackOffice Dashboard</h1>
-            <p>Manage back-end office management and various admin</p>
+            <p>Manage back-end office management and various admin tasks</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <StatCard
             title="Pending Applications"
             value={47}
-            subtitle="43 affiliate"
+            subtitle="43 affiliate applications"
             color="blue"
           />
           <StatCard
-            title="Recent Orders"
-            value={23}
-            subtitle="23 affiliate orders"
+            title="Active Affiliates"
+            value={156}
+            subtitle="Currently active"
             color="green"
           />
           <StatCard
-            title="Approved Today"
-            value={18}
-            subtitle="applications"
+            title="Total Applications"
+            value={203}
+            subtitle="All time applications"
             color="purple"
           />
         </div>
@@ -68,11 +68,22 @@ export const BackOfficeDashboard: React.FC = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle>Recent Orders</CardTitle>
+              <CardTitle>System Overview</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="text-sm text-gray-500">No recent activity to display</div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Total Users</span>
+                  <span className="text-lg font-bold">1,247</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Active Sessions</span>
+                  <span className="text-lg font-bold text-green-600">89</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">System Status</span>
+                  <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">Online</span>
+                </div>
               </div>
             </CardContent>
           </Card>

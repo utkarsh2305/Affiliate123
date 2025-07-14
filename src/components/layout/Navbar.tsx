@@ -19,21 +19,18 @@ export const Navbar: React.FC<NavbarProps> = ({ userType, userName = 'John Doe' 
           { label: 'Dashboard', path: '/admin' },
           { label: 'Manage Affiliates', path: '/admin/affiliates' },
           { label: 'Order Management', path: '/admin/orders' },
-          { label: 'User Management', path: '/admin/users' },
-          { label: 'Trade Commission Management', path: '/admin/commissions' }
+          { label: 'User Management', path: '/admin/users' }
         ];
       case 'backoffice':
         return [
           { label: 'Dashboard', path: '/backoffice' },
-          { label: 'Manage Affiliates', path: '/backoffice/affiliates' },
-          { label: 'Orders', path: '/backoffice/orders' },
-          { label: 'Commission', path: '/backoffice/commission' }
+          { label: 'Manage Affiliates', path: '/backoffice/affiliates' }
         ];
       case 'affiliate':
         return [
           { label: 'Dashboard', path: '/affiliate' },
           { label: 'Retailers', path: '/affiliate/retailers' },
-          { label: 'Orders & Commission', path: '/affiliate/orders' },
+          { label: 'Orders', path: '/affiliate/orders' },
           { label: 'Profile', path: '/affiliate/profile' }
         ];
       default:
@@ -76,9 +73,11 @@ export const Navbar: React.FC<NavbarProps> = ({ userType, userName = 'John Doe' 
             <User className="h-5 w-5 text-gray-600" />
             <span className="text-sm font-medium text-gray-700">{userName}</span>
           </div>
-          <Button variant="ghost" size="icon">
-            <LogOut className="h-5 w-5" />
-          </Button>
+          <Link to="/login">
+            <Button variant="ghost" size="icon">
+              <LogOut className="h-5 w-5" />
+            </Button>
+          </Link>
         </div>
       </div>
     </nav>

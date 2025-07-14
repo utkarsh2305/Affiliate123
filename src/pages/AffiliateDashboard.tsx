@@ -4,6 +4,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Notice } from '@/types/affiliate';
 
 export const AffiliateDashboard: React.FC = () => {
   const progressData = [
@@ -12,9 +13,21 @@ export const AffiliateDashboard: React.FC = () => {
     { label: 'FTD Target', progress: 60, color: 'bg-green-500' }
   ];
 
-  const recentOrders = [
-    { customer: 'Mike John', product: 'Laptop', status: 'processing', amount: '₦850,000' },
-    { customer: 'Sarah Wilson', product: 'Smartphone', status: 'completed', amount: '₦250,000' }
+  const notices: Notice[] = [
+    {
+      id: '1',
+      title: 'Commission Requirements',
+      content: 'To earn commission, ensure: 1) Retailer is registered with your Affiliate ID, 2) Order includes your Affiliate voucher code, 3) Order amount is at least ₦150,000',
+      type: 'info',
+      date: '2024-01-15'
+    },
+    {
+      id: '2',
+      title: 'Monthly Milestone Achieved',
+      content: 'Congratulations on achieving your monthly sales target!',
+      type: 'success',
+      date: '2024-01-14'
+    }
   ];
 
   return (
@@ -31,27 +44,27 @@ export const AffiliateDashboard: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard
-            title="Total Revenue"
-            value={12}
-            subtitle="+ 8% last 30 days"
+            title="Qualified Orders (MTD)"
+            value={8}
+            subtitle="Closed/completed orders"
             color="blue"
           />
           <StatCard
-            title="Conversion"
-            value="26%"
-            subtitle="Order completion rate"
+            title="Projected Commission"
+            value="₦65,000"
+            subtitle="All order statuses"
             color="green"
           />
           <StatCard
-            title="Total Commission"
+            title="Qualified Commission"
             value="₦45,000"
-            subtitle="This month earned"
+            subtitle="Qualified orders only"
             color="purple"
           />
           <StatCard
-            title="Pending Commission"
+            title="Monthly Commission"
             value="₦33,000"
-            subtitle="Waiting for payment"
+            subtitle="Current month"
             color="orange"
           />
         </div>
@@ -93,44 +106,57 @@ export const AffiliateDashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="p-3 bg-blue-50 rounded-lg">
-                  <p className="text-sm font-medium">New Commission Structure Update</p>
-                  <p className="text-xs text-gray-500 mt-1">Updated commission rates effective...</p>
-                </div>
-                <div className="p-3 bg-yellow-50 rounded-lg">
-                  <p className="text-sm font-medium">Monthly Milestone Achieved</p>
-                  <p className="text-xs text-gray-500 mt-1">Congratulations on achieving...</p>
-                </div>
+                {notices.map((notice) => (
+                  <div key={notice.id} className={`p-3 rounded-lg ${
+                    notice.type === 'info' ? 'bg-blue-50' :
+                    notice.type === 'success' ? 'bg-green-50' : 'bg-yellow-50'
+                  }`}>
+                    <p className="text-sm font-medium">{notice.title}</p>
+                    <p className="text-xs text-gray-500 mt-1">{notice.content}</p>
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Orders</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {recentOrders.map((order, index) => (
-                <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                  <div>
-                    <p className="font-medium">{order.customer}</p>
-                    <p className="text-sm text-gray-500">{order.product}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-medium">{order.amount}</p>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      order.status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                    }`}>
-                      {order.status}
-                    </span>
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Total Orders</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Complete/Closed Orders</span>
+                  <span className="text-lg font-bold text-green-600">23</span>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Pending/Processing Orders</span>
+                  <span className="text-lg font-bold text-orange-600">7</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Performance Overview</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Total Revenue</span>
+                  <span className="text-lg font-bold">₦1,850,000</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Conversion Rate</span>
+                  <span className="text-lg font-bold text-blue-600">26%</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
