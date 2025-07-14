@@ -4,16 +4,42 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Link } from 'react-router-dom';
+import { Upload } from 'lucide-react';
 
 export const AffiliateRegistration: React.FC = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
+    mobileNumber: '',
+    ninOrBvn: '',
     bankName: '',
     accountNumber: '',
-    phoneNumber: ''
+    selfieUpload: null as File | null,
+    acceptTerms: false
   });
+
+  const nigerianBanks = [
+    'Access Bank',
+    'First Bank of Nigeria',
+    'Guaranty Trust Bank',
+    'United Bank for Africa',
+    'Zenith Bank',
+    'Fidelity Bank',
+    'Union Bank of Nigeria',
+    'Sterling Bank',
+    'Stanbic IBTC Bank',
+    'Ecobank Nigeria',
+    'FCMB',
+    'Heritage Bank',
+    'Keystone Bank',
+    'Polaris Bank',
+    'Providus Bank',
+    'Unity Bank',
+    'Wema Bank'
+  ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -22,128 +48,198 @@ export const AffiliateRegistration: React.FC = () => {
     });
   };
 
+  const handleBankSelect = (value: string) => {
+    setFormData({
+      ...formData,
+      bankName: value
+    });
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setFormData({
+      ...formData,
+      selfieUpload: file
+    });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Registration data:', formData);
-    // Handle registration logic here
+  };
+
+  const sendOTP = () => {
+    console.log('Sending OTP to:', formData.mobileNumber);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* Left Panel - Registration Form */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Affiliate Registration</h2>
-            <p className="text-gray-600">Fill the form to get started with our Affiliate information</p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <Label htmlFor="fullName">Full Name *</Label>
-              <Input
-                id="fullName"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleInputChange}
-                placeholder="Enter your full name"
-                required
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="email">Email Address *</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="Enter your email address"
-                required
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="bankName">Bank Name *</Label>
-              <Input
-                id="bankName"
-                name="bankName"
-                value={formData.bankName}
-                onChange={handleInputChange}
-                placeholder="Enter your bank name"
-                required
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="accountNumber">Account Number *</Label>
-              <Input
-                id="accountNumber"
-                name="accountNumber"
-                value={formData.accountNumber}
-                onChange={handleInputChange}
-                placeholder="Enter account number"
-                required
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="phoneNumber">Phone Number *</Label>
-              <Input
-                id="phoneNumber"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
-                placeholder="Enter phone number"
-                required
-              />
-            </div>
-
-            <Button type="submit" className="w-full">
-              Register Now
-            </Button>
-
-            <div className="text-center">
-              <p className="text-sm text-gray-600">
-                Don't have an account?{' '}
-                <Link to="/login" className="text-blue-600 hover:underline">
-                  Register as an Affiliate
-                </Link>
-              </p>
-            </div>
-          </form>
-        </div>
+    <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-8">
+      {/* Logo */}
+      <div className="mb-8">
+        <img 
+          src="/lovable-uploads/6b8381fd-9da9-481c-ac8f-d5de29277627.png" 
+          alt="RedCloud Logo" 
+          className="h-12 w-auto"
+        />
       </div>
 
-      {/* Right Panel - Demo Accounts */}
-      <div className="w-80 bg-white border-l p-8">
-        <div className="mb-8">
-          <div className="text-xl font-bold text-red-600 mb-4">RedCloud</div>
-          <p className="text-sm text-gray-600">Affiliate Management System</p>
-        </div>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Demo Accounts</CardTitle>
+      <div className="w-full max-w-md">
+        <Card className="border-blue-200">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl font-bold text-blue-900">Affiliate Registration</CardTitle>
+            <p className="text-blue-600">Join the RedCloud affiliate network and start earning commissions</p>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <h4 className="font-medium text-gray-900">Affiliate:</h4>
-              <p className="text-sm text-gray-600">affiliate@example.com</p>
-            </div>
-            <div>  
-              <h4 className="font-medium text-gray-900">Back Office:</h4>
-              <p className="text-sm text-gray-600">backoffice@example.com</p>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900">Admin:</h4>
-              <p className="text-sm text-gray-600">admin@example.com</p>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900">Password:</h4>
-              <p className="text-sm text-gray-600">password123</p>
-            </div>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <Label htmlFor="fullName" className="text-blue-800">Full Name *</Label>
+                <Input
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  placeholder="Enter your full name"
+                  className="border-blue-200 focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="email" className="text-blue-800">Email Address</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter your email address"
+                  className="border-blue-200 focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="mobileNumber" className="text-blue-800">Mobile Number *</Label>
+                <div className="flex space-x-2">
+                  <Input
+                    id="mobileNumber"
+                    name="mobileNumber"
+                    value={formData.mobileNumber}
+                    onChange={handleInputChange}
+                    placeholder="+234 800 123 4567"
+                    className="border-blue-200 focus:border-blue-500 flex-1"
+                    required
+                  />
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    onClick={sendOTP}
+                    className="border-blue-200 text-blue-600 hover:bg-blue-50"
+                  >
+                    Send OTP
+                  </Button>
+                </div>
+                <p className="text-xs text-blue-600 mt-1">Note: The mobile number must be registered with WhatsApp</p>
+              </div>
+
+              <div>
+                <Label htmlFor="ninOrBvn" className="text-blue-800">NIN or BVN *</Label>
+                <Input
+                  id="ninOrBvn"
+                  name="ninOrBvn"
+                  value={formData.ninOrBvn}
+                  onChange={handleInputChange}
+                  placeholder="Enter your NIN or BVN"
+                  className="border-blue-200 focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-blue-800">Bank Name</Label>
+                  <Select onValueChange={handleBankSelect}>
+                    <SelectTrigger className="border-blue-200 focus:border-blue-500">
+                      <SelectValue placeholder="Select your bank" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {nigerianBanks.map((bank) => (
+                        <SelectItem key={bank} value={bank}>
+                          {bank}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="accountNumber" className="text-blue-800">Account Number</Label>
+                  <Input
+                    id="accountNumber"
+                    name="accountNumber"
+                    value={formData.accountNumber}
+                    onChange={handleInputChange}
+                    placeholder="Enter account number"
+                    className="border-blue-200 focus:border-blue-500"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-blue-800">Upload Selfie *</Label>
+                <div className="border-2 border-dashed border-blue-200 rounded-lg p-6 text-center">
+                  <input
+                    type="file"
+                    accept="image/png,image/jpeg"
+                    onChange={handleFileUpload}
+                    className="hidden"
+                    id="selfie-upload"
+                  />
+                  <label htmlFor="selfie-upload" className="cursor-pointer">
+                    <Upload className="h-8 w-8 text-blue-400 mx-auto mb-2" />
+                    <p className="text-blue-600 font-medium">Click to upload your selfie</p>
+                    <p className="text-xs text-blue-500">PNG, JPG up to 5MB</p>
+                  </label>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <p className="text-blue-700 text-sm">reCAPTCHA verification (placeholder)</p>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="terms"
+                  checked={formData.acceptTerms}
+                  onCheckedChange={(checked) => 
+                    setFormData({ ...formData, acceptTerms: checked as boolean })
+                  }
+                />
+                <Label htmlFor="terms" className="text-sm text-blue-700">
+                  I accept the{' '}
+                  <Link to="#" className="text-blue-600 hover:underline">Terms & Conditions</Link>
+                  {' '}and{' '}
+                  <Link to="#" className="text-blue-600 hover:underline">Privacy Policy</Link>
+                </Label>
+              </div>
+
+              <Button 
+                type="submit" 
+                className="w-full bg-blue-600 hover:bg-blue-700"
+                disabled={!formData.acceptTerms}
+              >
+                Register Now
+              </Button>
+
+              <div className="text-center">
+                <p className="text-sm text-blue-600">
+                  Already have an account?{' '}
+                  <Link to="/login" className="text-blue-700 hover:underline font-medium">
+                    Sign In
+                  </Link>
+                </p>
+              </div>
+            </form>
           </CardContent>
         </Card>
       </div>

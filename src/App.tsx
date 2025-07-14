@@ -14,6 +14,9 @@ import { Login } from "./pages/Login";
 import { AffiliateOrders } from "./pages/AffiliateOrders";
 import { AffiliateRetailers } from "./pages/AffiliateRetailers";
 import { AffiliateProfile } from "./pages/AffiliateProfile";
+import { AdminReports } from "./pages/AdminReports";
+import { BackOfficeReports } from "./pages/BackOfficeReports";
+import { MasterDataCommissionUpload } from "./pages/MasterDataCommissionUpload";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,13 +34,19 @@ const App = () => (
           
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/affiliates" element={<ManageAffiliates />} />
+          <Route path="/admin/users" element={<ManageAffiliates />} />
+          <Route path="/admin/users/create" element={<AffiliateRegistration />} />
           <Route path="/admin/orders" element={<OrderManagement />} />
-          <Route path="/admin/users" element={<AdminDashboard />} />
+          <Route path="/admin/reports" element={<AdminReports />} />
+          <Route path="/admin/master-data/commission-upload" element={<MasterDataCommissionUpload />} />
+          <Route path="/admin/profile" element={<AffiliateProfile />} />
           
           {/* Back Office Routes */}
           <Route path="/backoffice" element={<BackOfficeDashboard />} />
-          <Route path="/backoffice/affiliates" element={<ManageAffiliates />} />
+          <Route path="/backoffice/users" element={<ManageAffiliates />} />
+          <Route path="/backoffice/users/create" element={<AffiliateRegistration />} />
+          <Route path="/backoffice/reports" element={<BackOfficeReports />} />
+          <Route path="/backoffice/profile" element={<AffiliateProfile />} />
           
           {/* Affiliate Routes */}
           <Route path="/affiliate" element={<AffiliateDashboard />} />
