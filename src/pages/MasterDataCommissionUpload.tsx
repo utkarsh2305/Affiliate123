@@ -1,178 +1,128 @@
 
 import React, { useState } from 'react';
-import { Navbar } from '@/components/layout/Navbar';
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Upload, FileSpreadsheet, Download } from 'lucide-react';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/layout/AppSidebar';
 import { useToast } from '@/hooks/use-toast';
 
 export const MasterDataCommissionUpload: React.FC = () => {
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { toast } = useToast();
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setUploadedFile(file);
-      toast({
-        title: "File uploaded successfully",
-        description: `${file.name} has been uploaded and is ready for processing.`
-      });
-    }
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setSelectedFile(file);
   };
 
-  const processCommissionData = () => {
-    if (uploadedFile) {
+  const handleUpload = () => {
+    if (selectedFile) {
       toast({
-        title: "Processing commission data",
-        description: "Commission details are being processed and updated in the system."
+        title: "File uploaded successfully",
+        description: "Commission details have been processed and uploaded."
       });
-      setUploadedFile(null);
+      setSelectedFile(null);
+    } else {
+      toast({
+        title: "No file selected",
+        description: "Please select a file to upload.",
+        variant: "destructive"
+      });
     }
   };
 
   const downloadTemplate = () => {
     toast({
       title: "Template downloaded",
-      description: "Commission upload template has been downloaded."
+      description: "Commission template CSV file has been downloaded."
     });
   };
 
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen w-full">
-        <AppSidebar userType="admin" />
-        <div className="flex-1">
-          <Navbar userType="admin" />
-          
-          <div className="px-6 py-8">
-            <div className="mb-8">
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Upload Commission Details</h1>
-              <p className="text-gray-600">Upload and process commission data from Excel or CSV files</p>
-            </div>
+    <DashboardLayout userType="admin">
+      <div className="px-6 py-8">
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Upload Commission Details</h1>
+          <p className="text-gray-600">Upload commission details using CSV or Excel files.</p>
+        </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Upload className="h-5 w-5 mr-2 text-blue-600" />
-                    Upload Commission File
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                    <input
-                      type="file"
-                      accept=".xlsx,.csv,.xls"
-                      onChange={handleFileUpload}
-                      className="hidden"
-                      id="commission-file-upload"
-                    />
-                    <label htmlFor="commission-file-upload" className="cursor-pointer">
-                      <FileSpreadsheet className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                      <p className="text-lg font-medium text-gray-700 mb-2">
-                        Drop your commission file here
-                      </p>
-                      <p className="text-sm text-gray-500 mb-4">
-                        or click to browse files
-                      </p>
-                      <p className="text-xs text-gray-400">
-                        Supports: Excel (.xlsx, .xls) and CSV files
-                      </p>
-                    </label>
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Upload className="h-5 w-5 mr-2" />
+                Upload File
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <Label htmlFor="commission-file">Select Commission File</Label>
+                <Input
+                  id="commission-file"
+                  type="file"
+                  accept=".csv,.xlsx,.xls"
+                  onChange={handleFileSelect}
+                  className="mt-1"
+                />
+                <p className="text-sm text-gray-500 mt-1">
+                  Supported formats: CSV, Excel (.xlsx, .xls)
+                </p>
+              </div>
 
-                  {uploadedFile && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <p className="text-sm font-medium text-blue-900">
-                        File Ready: {uploadedFile.name}
-                      </p>
-                      <p className="text-xs text-blue-600">
-                        Size: {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
-                      </p>
-                    </div>
-                  )}
-
-                  <Button 
-                    onClick={processCommissionData}
-                    disabled={!uploadedFile}
-                    className="w-full"
-                  >
-                    <Upload className="h-4 w-4 mr-2" />
-                    Process Commission Data
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Upload Instructions</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-2">File Format Requirements:</h4>
-                    <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
-                      <li>Excel files (.xlsx, .xls) or CSV format</li>
-                      <li>Maximum file size: 10MB</li>
-                      <li>First row should contain column headers</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Required Columns:</h4>
-                    <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
-                      <li>Order ID</li>
-                      <li>Affiliate ID</li>
-                      <li>Commission Amount</li>
-                      <li>Commission Rate (%)</li>
-                      <li>Payment Status</li>
-                    </ul>
-                  </div>
-
-                  <Button 
-                    onClick={downloadTemplate}
-                    variant="outline"
-                    className="w-full"
-                  >
-                    <Download className="h-4 w-4 mr-2" />
-                    Download Template
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-
-            <Card className="mt-8">
-              <CardHeader>
-                <CardTitle>Recent Uploads</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                    <div>
-                      <p className="font-medium text-gray-900">commission_data_jan_2024.xlsx</p>
-                      <p className="text-sm text-gray-500">Uploaded on Jan 15, 2024 at 2:30 PM</p>
-                    </div>
-                    <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
-                      Processed
+              {selectedFile && (
+                <div className="p-3 bg-blue-50 rounded-lg">
+                  <div className="flex items-center">
+                    <FileSpreadsheet className="h-4 w-4 text-blue-600 mr-2" />
+                    <span className="text-sm font-medium text-blue-900">
+                      {selectedFile.name}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                    <div>
-                      <p className="font-medium text-gray-900">commission_data_dec_2023.csv</p>
-                      <p className="text-sm text-gray-500">Uploaded on Jan 1, 2024 at 9:15 AM</p>
-                    </div>
-                    <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
-                      Processed
-                    </span>
-                  </div>
+                  <p className="text-xs text-blue-600 mt-1">
+                    Size: {(selectedFile.size / 1024).toFixed(1)} KB
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              )}
+
+              <Button onClick={handleUpload} className="w-full" disabled={!selectedFile}>
+                <Upload className="h-4 w-4 mr-2" />
+                Upload Commission Details
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Download className="h-5 w-5 mr-2" />
+                Download Template
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-gray-600">
+                Download the commission details template to ensure your data is formatted correctly before uploading.
+              </p>
+              
+              <div className="space-y-2">
+                <h4 className="font-medium">Template includes:</h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Affiliate ID</li>
+                  <li>• Commission Rate (%)</li>
+                  <li>• Product Category</li>
+                  <li>• Minimum Order Value</li>
+                  <li>• Effective Date</li>
+                </ul>
+              </div>
+
+              <Button onClick={downloadTemplate} variant="outline" className="w-full">
+                <Download className="h-4 w-4 mr-2" />
+                Download CSV Template
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
-    </SidebarProvider>
+    </DashboardLayout>
   );
 };

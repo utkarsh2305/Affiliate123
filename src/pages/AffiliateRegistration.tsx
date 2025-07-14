@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Link } from 'react-router-dom';
-import { Upload } from 'lucide-react';
+import { Upload, ArrowLeft } from 'lucide-react';
 
 export const AffiliateRegistration: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -74,6 +74,16 @@ export const AffiliateRegistration: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-8">
+      {/* Back to Login Button */}
+      <div className="w-full max-w-md mb-4">
+        <Link to="/login">
+          <Button variant="ghost" className="text-blue-700 hover:text-blue-800 hover:bg-blue-100 p-2">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Login
+          </Button>
+        </Link>
+      </div>
+
       {/* Logo */}
       <div className="mb-8">
         <img 
