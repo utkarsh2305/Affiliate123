@@ -1,9 +1,11 @@
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Plus, Search } from 'lucide-react';
 import { AffiliateTable } from '@/components/affiliates/AffiliateTable';
 import { Affiliate } from '@/types/affiliate';
 
@@ -34,13 +36,43 @@ const mockAffiliates: Affiliate[] = [
     clicks: 980,
     conversions: 62,
     conversionRate: 6.3
+  },
+  {
+    id: 'AFF-003',
+    name: 'Mike Johnson',
+    email: 'mike.johnson@example.com',
+    phone: '+234-555-123-4567',
+    status: 'Inactive',
+    registrationDate: '2024-01-10',
+    totalEarnings: 120000,
+    pendingCommission: 5000,
+    clicks: 650,
+    conversions: 35,
+    conversionRate: 5.4
   }
 ];
 
 export const ManageAffiliates: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+
   // Determine user type based on current route
   const currentPath = window.location.pathname;
   const userType = currentPath.includes('/admin') ? 'admin' : 'backoffice';
+
+  // Filter and search affiliates
+  const filteredAffiliates = useMemo(() => {
+    return mockAffiliates.filter((affiliate) => {
+      const matchesSearch = 
+        affiliate.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        affiliate.phone.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        affiliate.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+      const matchesStatus = statusFilter === 'all' || affiliate.status === statusFilter;
+
+      return matchesSearch && matchesStatus;
+    });
+  }, [searchTerm, statusFilter]);
 
   return (
     <DashboardLayout userType={userType}>
@@ -56,12 +88,50 @@ export const ManageAffiliates: React.FC = () => {
           </Button>
         </div>
 
+        {/* Search and Filter Section */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>Search & Filter</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Input
+                  placeholder="Search by email, phone number, or name..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Filter by status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Statuses</SelectItem>
+                  <SelectItem value="Active">Active</SelectItem>
+                  <SelectItem value="Pending">Pending</SelectItem>
+                  <SelectItem value="Inactive">Inactive</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            {(searchTerm || statusFilter !== 'all') && (
+              <div className="mt-4 text-sm text-gray-600">
+                Showing {filteredAffiliates.length} of {mockAffiliates.length} users
+                {searchTerm && ` matching "${searchTerm}"`}
+                {statusFilter !== 'all' && ` with status "${statusFilter}"`}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader>
             <CardTitle>Users</CardTitle>
           </CardHeader>
           <CardContent>
-            <AffiliateTable affiliates={mockAffiliates} />
+            <AffiliateTable affiliates={filteredAffiliates} />
           </CardContent>
         </Card>
       </div>
