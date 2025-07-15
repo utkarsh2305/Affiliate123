@@ -5,6 +5,37 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { AffiliateTable } from '@/components/affiliates/AffiliateTable';
+import { Affiliate } from '@/types/affiliate';
+
+// Mock data for affiliates
+const mockAffiliates: Affiliate[] = [
+  {
+    id: 'AFF-001',
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+    phone: '+234-123-456-7890',
+    status: 'Active',
+    registrationDate: '2024-01-15',
+    totalEarnings: 250000,
+    pendingCommission: 15000,
+    clicks: 1250,
+    conversions: 85,
+    conversionRate: 6.8
+  },
+  {
+    id: 'AFF-002',
+    name: 'Jane Smith',
+    email: 'jane.smith@example.com',
+    phone: '+234-987-654-3210',
+    status: 'Pending',
+    registrationDate: '2024-01-20',
+    totalEarnings: 180000,
+    pendingCommission: 8500,
+    clicks: 980,
+    conversions: 62,
+    conversionRate: 6.3
+  }
+];
 
 export const ManageAffiliates: React.FC = () => {
   // Determine user type based on current route
@@ -30,7 +61,7 @@ export const ManageAffiliates: React.FC = () => {
             <CardTitle>Users</CardTitle>
           </CardHeader>
           <CardContent>
-            <AffiliateTable />
+            <AffiliateTable affiliates={mockAffiliates} />
           </CardContent>
         </Card>
       </div>

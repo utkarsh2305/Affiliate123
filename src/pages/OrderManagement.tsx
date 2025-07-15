@@ -4,6 +4,38 @@ import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { OrderTable } from '@/components/orders/OrderTable';
+import { Order } from '@/types/affiliate';
+
+// Mock data for orders
+const mockOrders: Order[] = [
+  {
+    id: 'ORD-001',
+    orderDate: '2024-01-15',
+    customerName: 'Alice Johnson',
+    productName: 'Laptop Pro 15"',
+    orderAmount: 450000,
+    status: 'Completed',
+    affiliate: 'John Doe'
+  },
+  {
+    id: 'ORD-002',
+    orderDate: '2024-01-14',
+    customerName: 'Bob Wilson',
+    productName: 'Smartphone X',
+    orderAmount: 280000,
+    status: 'Pending',
+    affiliate: 'Jane Smith'
+  },
+  {
+    id: 'ORD-003',
+    orderDate: '2024-01-13',
+    customerName: 'Carol Brown',
+    productName: 'Tablet Air',
+    orderAmount: 320000,
+    status: 'Processing',
+    affiliate: 'John Doe'
+  }
+];
 
 export const OrderManagement: React.FC = () => {
   return (
@@ -25,7 +57,7 @@ export const OrderManagement: React.FC = () => {
             title="Pending Orders"
             value={42}
             subtitle="Awaiting processing"
-            color="yellow"
+            color="orange"
           />
           <StatCard
             title="Completed Orders"
@@ -40,7 +72,7 @@ export const OrderManagement: React.FC = () => {
             <CardTitle>All Orders</CardTitle>
           </CardHeader>
           <CardContent>
-            <OrderTable />
+            <OrderTable orders={mockOrders} />
           </CardContent>
         </Card>
       </div>
