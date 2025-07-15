@@ -17,6 +17,7 @@ import { AffiliateProfile } from "./pages/AffiliateProfile";
 import { AdminReports } from "./pages/AdminReports";
 import { BackOfficeReports } from "./pages/BackOfficeReports";
 import { BackOfficeCreateUser } from "./pages/BackOfficeCreateUser";
+import { AdminCreateUser } from "./pages/AdminCreateUser";
 import { MasterDataCommissionUpload } from "./pages/MasterDataCommissionUpload";
 import NotFound from "./pages/NotFound";
 
@@ -36,7 +37,7 @@ const App = () => (
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/users" element={<ManageAffiliates />} />
-          <Route path="/admin/users/create" element={<AffiliateRegistration />} />
+          <Route path="/admin/users/create" element={<AdminCreateUser />} />
           <Route path="/admin/orders" element={<OrderManagement />} />
           <Route path="/admin/reports" element={<AdminReports />} />
           <Route path="/admin/master-data/commission-upload" element={<MasterDataCommissionUpload />} />

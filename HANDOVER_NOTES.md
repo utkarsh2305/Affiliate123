@@ -42,6 +42,9 @@ The RedCloud Affiliate Management System is a multi-tenant web application built
 ### Admin Dashboard (`/admin`)
 - **Dashboard** - Overview statistics and metrics
 - **User Management** (`/admin/users`) - Manage affiliates and back office users
+- **User Creation** (`/admin/users/create`) - Create both affiliate and back office users
+  - **Conditional Fields**: Bank details only required for affiliate users
+  - **Dual Role Support**: Admin can create both affiliate and back office users
 - **Order Management** (`/admin/orders`) - Monitor all platform orders
 - **Reports** (`/admin/reports`) - Generate affiliate login reports with date range selection and Excel export
 - **Master Data** (`/admin/master-data/commission-upload`) - Upload commission details
@@ -52,7 +55,10 @@ The RedCloud Affiliate Management System is a multi-tenant web application built
   - Active Affiliates KPI → `/backoffice/users?status=active` 
   - Total Applications KPI → `/backoffice/users` (all statuses)
 - **User Management** (`/backoffice/users`) - Limited user management with status filtering
-- **User Creation** (`/backoffice/users/create`) - Dedicated page for creating new users with back navigation
+- **User Creation** (`/backoffice/users/create`) - **Affiliate Creation Only**
+  - **Restriction**: Back office users can only create affiliate users
+  - **Required Fields**: All bank details required for affiliate creation
+  - **Navigation**: Proper back navigation to user management (not login)
 - **Reports** (`/backoffice/reports`) - Affiliate login reports with date range selection and Excel export
 
 ### Affiliate Dashboard (`/affiliate`)
@@ -211,7 +217,7 @@ To generate static HTML files for each route, you can use tools like:
 
 #### User Management
 - `GET /api/users` - List users (admin/backoffice) with status filtering
-- `POST /api/users` - Create user
+- `POST /api/users` - Create user (admin: both types, backoffice: affiliate only)
 - `PUT /api/users/:id` - Update user
 - `DELETE /api/users/:id` - Delete user
 
@@ -300,6 +306,7 @@ The project uses Vite for building. Key configuration in `vite.config.ts`:
    - Permission validation
    - Data validation
    - Status filtering functionality
+   - **Role-based Creation**: Admin can create both types, back office only affiliates
 
 3. **Responsive Design**
    - Mobile navigation
@@ -326,7 +333,8 @@ The project uses Vite for building. Key configuration in `vite.config.ts`:
 - `StatCard` - Metric display cards with click handlers
 
 ### Page Components
-- `BackOfficeCreateUser` - Dedicated user creation page
+- `BackOfficeCreateUser` - Dedicated affiliate creation page for back office users
+- `AdminCreateUser` - Comprehensive user creation page for admin users
 - Enhanced dashboard pages with updated functionality
 - Updated reports pages with date range selection
 
@@ -366,6 +374,16 @@ bun dev
 
 ## 🎯 Recent Updates & New Features
 
+### User Creation & Role Management
+1. **Admin User Creation**: Can create both affiliate and back office users
+   - **Conditional Form**: Bank details only shown for affiliate users
+   - **Full Access**: Complete user creation capabilities
+
+2. **Back Office User Creation**: Restricted to affiliate creation only
+   - **Single Role**: Can only create affiliate users
+   - **Required Fields**: All bank details mandatory for affiliates
+   - **Clear Navigation**: Proper back button to user management
+
 ### Affiliate User Experience
 1. **Order History**: Replaced 'Commission Earned' with 'Agent ID' column
 2. **Retailer Management**: Added FAO and Cluster Manager columns
@@ -378,11 +396,13 @@ bun dev
 
 ### Admin User Experience
 1. **Reports**: Updated to match back office functionality with date range selection and Excel export
+2. **User Creation**: Enhanced form with role-based field visibility
 
 ### Technical Improvements
 1. **Navigation Logic**: Enhanced with status-based filtering and proper routing
 2. **User Interface**: Improved mobile responsiveness and user experience
 3. **Data Structure**: Updated to support new column requirements and filtering
+4. **Form Logic**: Conditional field rendering based on user role selection
 
 ## 🎯 Next Steps for Development Team
 
@@ -392,18 +412,21 @@ bun dev
    - Configure authentication middleware
    - Implement status-based filtering for user management
    - Add Excel export functionality for reports
+   - **Role-based User Creation**: Ensure backend validates user creation permissions
 
 2. **Integration**
    - Replace mock data with API calls
    - Implement error handling
    - Add loading states
    - Connect date range filtering to backend
+   - **Validation**: Implement server-side validation for role-based user creation
 
 3. **Testing**
    - Unit tests for components
    - Integration tests for user flows
    - End-to-end testing for new features
    - Test KPI click navigation and filtering
+   - **Permission Testing**: Verify role-based user creation restrictions
 
 4. **Performance**
    - Optimize bundle size
@@ -416,6 +439,7 @@ bun dev
    - XSS protection
    - CSRF protection
    - Secure file export functionality
+   - **Role Validation**: Server-side enforcement of user creation permissions
 
 ## 📞 Support & Questions
 
@@ -426,4 +450,4 @@ For any questions about the frontend implementation, refer to:
 - React Router documentation
 - Updated user flow documentation
 
-This handover document provides a complete blueprint for continuing development of the RedCloud Affiliate Management System with all recent enhancements and user experience improvements.
+This handover document provides a complete blueprint for continuing development of the RedCloud Affiliate Management System with all recent enhancements and user experience improvements, including the updated role-based user creation functionality.

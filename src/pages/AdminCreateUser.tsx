@@ -1,20 +1,23 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft } from 'lucide-react';
 
-export const BackOfficeCreateUser: React.FC = () => {
+export const AdminCreateUser: React.FC = () => {
   const navigate = useNavigate();
+  const [userRole, setUserRole] = useState('');
 
   const handleBack = () => {
-    navigate('/backoffice/users');
+    navigate('/admin/users');
   };
 
+  const isAffiliate = userRole === 'affiliate';
+
   return (
-    <DashboardLayout userType="backoffice">
+    <DashboardLayout userType="admin">
       <div className="px-6 py-8">
         <div className="flex items-center mb-6">
           <Button variant="ghost" onClick={handleBack} className="mr-4">
@@ -24,13 +27,13 @@ export const BackOfficeCreateUser: React.FC = () => {
         </div>
 
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Create New Affiliate</h1>
-          <p className="text-gray-600">Add a new affiliate user to the system.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Create New User</h1>
+          <p className="text-gray-600">Add a new affiliate or back office user to the system.</p>
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Affiliate Registration Form</CardTitle>
+            <CardTitle>User Registration Form</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
@@ -57,57 +60,77 @@ export const BackOfficeCreateUser: React.FC = () => {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter phone number"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Bank Name
-                </label>
-                <input
-                  type="text"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter bank name"
-                />
-              </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Account Number
+                    Phone Number
                   </label>
                   <input
-                    type="text"
+                    type="tel"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter account number"
+                    placeholder="Enter phone number"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    NIN/BVN
+                    User Role
                   </label>
-                  <input
-                    type="text"
+                  <select 
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter NIN or BVN"
-                  />
+                    value={userRole}
+                    onChange={(e) => setUserRole(e.target.value)}
+                  >
+                    <option value="">Select role</option>
+                    <option value="affiliate">Affiliate</option>
+                    <option value="backoffice">Back Office</option>
+                  </select>
                 </div>
               </div>
+
+              {isAffiliate && (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Bank Name
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter bank name"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Account Number
+                      </label>
+                      <input
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter account number"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        NIN/BVN
+                      </label>
+                      <input
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter NIN or BVN"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
 
               <div className="flex justify-end space-x-4">
                 <Button variant="outline" onClick={handleBack}>
                   Cancel
                 </Button>
                 <Button type="submit">
-                  Create Affiliate
+                  Create User
                 </Button>
               </div>
             </div>
