@@ -1,4 +1,3 @@
-
 # RedCloud Affiliate Management System - Handover Notes
 
 ## Project Overview
@@ -67,7 +66,8 @@ The RedCloud Affiliate Management System is a multi-tenant web application built
 - **Retailers** (`/affiliate/retailers`) - Manage retailer relationships
   - **Enhanced Table**: Added FAO column (alphanumeric, e.g., FAO1234) and Cluster Manager column (email)
 - **Orders** (`/affiliate/orders`) - View personal order history
-  - **Updated Table**: Replaced 'Commission Earned' with 'Agent ID' column
+  - **Updated Table**: Replaced 'Agent ID' with 'FAO' column
+  - **Color Coding**: Days Since Order shows in red (font-semibold) when >= 10 days
 
 ## 🎨 Design System Details
 
@@ -186,7 +186,7 @@ To generate static HTML files for each route, you can use tools like:
 - order_amount
 - status (pending/processing/completed/cancelled)
 - affiliate_id (foreign key)
-- agent_id (replaces commission_earned)
+- fao (alphanumeric identifier, e.g., FAO1234)
 - created_at
 - updated_at
 ```
@@ -386,6 +386,7 @@ bun dev
 
 ### Affiliate User Experience
 1. **Order History**: Replaced 'Commission Earned' with 'Agent ID' column
+   - **Color Coding**: Days Since Order displays in red when >= 10 days for better visibility
 2. **Retailer Management**: Added FAO and Cluster Manager columns
 3. **Dashboard Identity**: Prominently displays affiliate ID under user name
 

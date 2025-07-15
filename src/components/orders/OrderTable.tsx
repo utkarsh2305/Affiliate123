@@ -35,7 +35,7 @@ export const OrderTable: React.FC<OrderTableProps> = ({ orders }) => {
             <TableHead>Product Name</TableHead>
             <TableHead>Order Amount</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Affiliate</TableHead>
+            <TableHead>FAO</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -51,7 +51,7 @@ export const OrderTable: React.FC<OrderTableProps> = ({ orders }) => {
                   {order.status}
                 </Badge>
               </TableCell>
-              <TableCell>{order.affiliate}</TableCell>
+              <TableCell className="font-medium text-blue-600">{order.fao}</TableCell>
             </TableRow>
           ))}
         </TableBody>

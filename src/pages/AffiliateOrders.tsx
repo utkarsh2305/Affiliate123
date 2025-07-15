@@ -9,7 +9,7 @@ const orders = [
     id: 'ORD-001',
     orderDate: '2024-01-15',
     orderValue: '₦275,000',
-    agentId: 'AGT-12345',
+    fao: 'FAO1234',
     status: 'Completed',
     daysSinceOrder: 5
   },
@@ -17,7 +17,7 @@ const orders = [
     id: 'ORD-002',
     orderDate: '2024-01-12',
     orderValue: '₦450,000',
-    agentId: 'AGT-67890',
+    fao: 'FAO5678',
     status: 'Processing',
     daysSinceOrder: 8
   },
@@ -25,13 +25,20 @@ const orders = [
     id: 'ORD-003',
     orderDate: '2024-01-10',
     orderValue: '₦320,000',
-    agentId: 'AGT-11223',
+    fao: 'FAO9012',
     status: 'Completed',
-    daysSinceOrder: 10
+    daysSinceOrder: 12
   }
 ];
 
 export const AffiliateOrders: React.FC = () => {
+  const getDaysSinceOrderColor = (days: number) => {
+    if (days >= 10) {
+      return 'text-red-600 font-semibold';
+    }
+    return 'text-gray-900';
+  };
+
   return (
     <DashboardLayout userType="affiliate">
       <div className="px-6 py-8">
@@ -52,7 +59,7 @@ export const AffiliateOrders: React.FC = () => {
                     <th className="text-left p-4 font-medium">Order ID</th>
                     <th className="text-left p-4 font-medium">Order Date</th>
                     <th className="text-left p-4 font-medium">Order Value</th>
-                    <th className="text-left p-4 font-medium">Agent ID</th>
+                    <th className="text-left p-4 font-medium">FAO</th>
                     <th className="text-left p-4 font-medium">Status</th>
                     <th className="text-left p-4 font-medium">Days Since Order</th>
                   </tr>
@@ -63,7 +70,7 @@ export const AffiliateOrders: React.FC = () => {
                       <td className="p-4 font-medium">{order.id}</td>
                       <td className="p-4">{order.orderDate}</td>
                       <td className="p-4">{order.orderValue}</td>
-                      <td className="p-4 font-medium text-blue-600">{order.agentId}</td>
+                      <td className="p-4 font-medium text-blue-600">{order.fao}</td>
                       <td className="p-4">
                         <Badge 
                           variant={order.status === 'Completed' ? 'default' : 'secondary'}
@@ -72,7 +79,9 @@ export const AffiliateOrders: React.FC = () => {
                           {order.status}
                         </Badge>
                       </td>
-                      <td className="p-4">{order.daysSinceOrder}</td>
+                      <td className={`p-4 ${getDaysSinceOrderColor(order.daysSinceOrder)}`}>
+                        {order.daysSinceOrder}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

@@ -22,6 +22,7 @@ export interface Order {
   orderAmount: number;
   status: 'Completed' | 'Pending' | 'Processing' | 'Cancelled';
   affiliate: string;
+  fao: string;
   retailerId?: string;
   voucherCode?: string;
 }
