@@ -9,6 +9,8 @@ import { Plus } from 'lucide-react';
 const retailers = [
   {
     id: 'RET-001',
+    fao: 'FAO1234',
+    clusterManager: 'cluster.manager1@redcloud.com',
     businessName: 'ABC Electronics Store',
     contactPerson: 'John Okoro',
     location: 'Lagos, Nigeria',
@@ -18,6 +20,8 @@ const retailers = [
   },
   {
     id: 'RET-002',
+    fao: 'FAO5678',
+    clusterManager: 'cluster.manager2@redcloud.com',
     businessName: 'Tech Solutions Ltd',
     contactPerson: 'Mary Adebayo',
     location: 'Abuja, Nigeria',
@@ -27,6 +31,8 @@ const retailers = [
   },
   {
     id: 'RET-003',
+    fao: 'FAO9012',
+    clusterManager: 'cluster.manager3@redcloud.com',
     businessName: 'Digital Hub Enterprise',
     contactPerson: 'Ibrahim Hassan',
     location: 'Kano, Nigeria',
@@ -61,6 +67,8 @@ export const AffiliateRetailers: React.FC = () => {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-4 font-medium">Retailer ID</th>
+                    <th className="text-left p-4 font-medium">FAO</th>
+                    <th className="text-left p-4 font-medium">Cluster Manager</th>
                     <th className="text-left p-4 font-medium">Business Name</th>
                     <th className="text-left p-4 font-medium">Contact Person</th>
                     <th className="text-left p-4 font-medium">Location</th>
@@ -73,6 +81,8 @@ export const AffiliateRetailers: React.FC = () => {
                   {retailers.map((retailer) => (
                     <tr key={retailer.id} className="border-b hover:bg-gray-50">
                       <td className="p-4 font-medium">{retailer.id}</td>
+                      <td className="p-4 font-medium text-blue-600">{retailer.fao}</td>
+                      <td className="p-4 text-sm">{retailer.clusterManager}</td>
                       <td className="p-4">{retailer.businessName}</td>
                       <td className="p-4">{retailer.contactPerson}</td>
                       <td className="p-4">{retailer.location}</td>

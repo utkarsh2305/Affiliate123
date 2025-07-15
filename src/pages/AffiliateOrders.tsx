@@ -9,7 +9,7 @@ const orders = [
     id: 'ORD-001',
     orderDate: '2024-01-15',
     orderValue: '₦275,000',
-    commissionEarned: '₦8,250',
+    agentId: 'AGT-12345',
     status: 'Completed',
     daysSinceOrder: 5
   },
@@ -17,7 +17,7 @@ const orders = [
     id: 'ORD-002',
     orderDate: '2024-01-12',
     orderValue: '₦450,000',
-    commissionEarned: '₦13,500',
+    agentId: 'AGT-67890',
     status: 'Processing',
     daysSinceOrder: 8
   },
@@ -25,7 +25,7 @@ const orders = [
     id: 'ORD-003',
     orderDate: '2024-01-10',
     orderValue: '₦320,000',
-    commissionEarned: '₦9,600',
+    agentId: 'AGT-11223',
     status: 'Completed',
     daysSinceOrder: 10
   }
@@ -37,7 +37,7 @@ export const AffiliateOrders: React.FC = () => {
       <div className="px-6 py-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">My Orders</h1>
-          <p className="text-gray-600">Track your order history and commission earnings.</p>
+          <p className="text-gray-600">Track your order history and performance.</p>
         </div>
 
         <Card>
@@ -52,7 +52,7 @@ export const AffiliateOrders: React.FC = () => {
                     <th className="text-left p-4 font-medium">Order ID</th>
                     <th className="text-left p-4 font-medium">Order Date</th>
                     <th className="text-left p-4 font-medium">Order Value</th>
-                    <th className="text-left p-4 font-medium">Commission Earned</th>
+                    <th className="text-left p-4 font-medium">Agent ID</th>
                     <th className="text-left p-4 font-medium">Status</th>
                     <th className="text-left p-4 font-medium">Days Since Order</th>
                   </tr>
@@ -63,7 +63,7 @@ export const AffiliateOrders: React.FC = () => {
                       <td className="p-4 font-medium">{order.id}</td>
                       <td className="p-4">{order.orderDate}</td>
                       <td className="p-4">{order.orderValue}</td>
-                      <td className="p-4 text-green-600 font-medium">{order.commissionEarned}</td>
+                      <td className="p-4 font-medium text-blue-600">{order.agentId}</td>
                       <td className="p-4">
                         <Badge 
                           variant={order.status === 'Completed' ? 'default' : 'secondary'}

@@ -1,15 +1,28 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const BackOfficeDashboard: React.FC = () => {
-  const applications = [
-    { id: 1, type: 'Pending Applications', count: 'View All', status: 'New Registrations' },
-    { id: 2, type: 'Open Tickets', count: 'View All', status: 'Support Requests' },
-    { id: 3, type: 'System Updates', count: 'View All', status: 'Recently Updated' }
-  ];
+  const navigate = useNavigate();
+
+  const handleStatCardClick = (type: string) => {
+    switch (type) {
+      case 'pending':
+        navigate('/backoffice/users?status=pending');
+        break;
+      case 'active':
+        navigate('/backoffice/users?status=active');
+        break;
+      case 'total':
+        navigate('/backoffice/users');
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <DashboardLayout userType="backoffice">
@@ -22,48 +35,33 @@ export const BackOfficeDashboard: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <StatCard
-            title="Pending Applications"
-            value={47}
-            subtitle="43 affiliate applications"
-            color="blue"
-          />
-          <StatCard
-            title="Active Affiliates"
-            value={156}
-            subtitle="Currently active"
-            color="green"
-          />
-          <StatCard
-            title="Total Applications"
-            value={203}
-            subtitle="All time applications"
-            color="purple"
-          />
+          <div onClick={() => handleStatCardClick('pending')} className="cursor-pointer">
+            <StatCard
+              title="Pending Applications"
+              value={47}
+              subtitle="43 affiliate applications"
+              color="blue"
+            />
+          </div>
+          <div onClick={() => handleStatCardClick('active')} className="cursor-pointer">
+            <StatCard
+              title="Active Affiliates"
+              value={156}
+              subtitle="Currently active"
+              color="green"
+            />
+          </div>
+          <div onClick={() => handleStatCardClick('total')} className="cursor-pointer">
+            <StatCard
+              title="Total Applications"
+              value={203}
+              subtitle="All time applications"
+              color="purple"
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Pending Applications</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {applications.map((app) => (
-                  <div key={app.id} className="flex items-center justify-between py-2">
-                    <div>
-                      <div className="text-sm font-medium text-gray-900">{app.type}</div>
-                      <div className="text-xs text-gray-500">{app.status}</div>
-                    </div>
-                    <span className="text-xs text-blue-600 cursor-pointer hover:underline">
-                      {app.count}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
           <Card>
             <CardHeader>
               <CardTitle>System Overview</CardTitle>
@@ -81,6 +79,37 @@ export const BackOfficeDashboard: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">System Status</span>
                   <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">Online</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Activity</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between py-2">
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">New Applications</div>
+                    <div className="text-xs text-gray-500">12 new affiliate applications</div>
+                  </div>
+                  <span className="text-xs text-blue-600">Today</span>
+                </div>
+                <div className="flex items-center justify-between py-2">
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">System Updates</div>
+                    <div className="text-xs text-gray-500">Platform maintenance completed</div>
+                  </div>
+                  <span className="text-xs text-green-600">Yesterday</span>
+                </div>
+                <div className="flex items-center justify-between py-2">
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">User Activities</div>
+                    <div className="text-xs text-gray-500">High user engagement recorded</div>
+                  </div>
+                  <span className="text-xs text-gray-600">2 days ago</span>
                 </div>
               </div>
             </CardContent>

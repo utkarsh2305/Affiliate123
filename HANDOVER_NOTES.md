@@ -37,23 +37,31 @@ The RedCloud Affiliate Management System is a multi-tenant web application built
    - File upload for selfie verification
    - Bank account information collection
    - Terms & conditions acceptance
+   - **Navigation**: Back to Login button for easy return
 
 ### Admin Dashboard (`/admin`)
 - **Dashboard** - Overview statistics and metrics
 - **User Management** (`/admin/users`) - Manage affiliates and back office users
 - **Order Management** (`/admin/orders`) - Monitor all platform orders
-- **Reports** (`/admin/reports`) - Generate system reports
+- **Reports** (`/admin/reports`) - Generate affiliate login reports with date range selection and Excel export
 - **Master Data** (`/admin/master-data/commission-upload`) - Upload commission details
 
 ### Back Office Dashboard (`/backoffice`)
-- **Dashboard** - Back office specific metrics
-- **User Management** (`/backoffice/users`) - Limited user management
-- **Reports** (`/backoffice/reports`) - Back office reports
+- **Dashboard** - Back office specific metrics with clickable KPIs that redirect to user management
+  - Pending Applications KPI → `/backoffice/users?status=pending`
+  - Active Affiliates KPI → `/backoffice/users?status=active` 
+  - Total Applications KPI → `/backoffice/users` (all statuses)
+- **User Management** (`/backoffice/users`) - Limited user management with status filtering
+- **User Creation** (`/backoffice/users/create`) - Dedicated page for creating new users with back navigation
+- **Reports** (`/backoffice/reports`) - Affiliate login reports with date range selection and Excel export
 
 ### Affiliate Dashboard (`/affiliate`)
 - **Dashboard** - Personal earnings and performance metrics
+  - **User Identity**: Shows affiliate ID (e.g., APR20000) prominently under user name
 - **Retailers** (`/affiliate/retailers`) - Manage retailer relationships
+  - **Enhanced Table**: Added FAO column (alphanumeric, e.g., FAO1234) and Cluster Manager column (email)
 - **Orders** (`/affiliate/orders`) - View personal order history
+  - **Updated Table**: Replaced 'Commission Earned' with 'Agent ID' column
 
 ## 🎨 Design System Details
 
@@ -142,6 +150,7 @@ To generate static HTML files for each route, you can use tools like:
 - full_name
 - phone
 - status (active/inactive/pending)
+- affiliate_id (for affiliates, e.g., APR20000)
 - created_at
 - updated_at
 ```
@@ -150,7 +159,7 @@ To generate static HTML files for each route, you can use tools like:
 ```sql
 - id (primary key)
 - user_id (foreign key)
-- affiliate_code (unique)
+- affiliate_code (unique, e.g., APR20000)
 - bank_name
 - account_number
 - nin_or_bvn
@@ -171,6 +180,23 @@ To generate static HTML files for each route, you can use tools like:
 - order_amount
 - status (pending/processing/completed/cancelled)
 - affiliate_id (foreign key)
+- agent_id (replaces commission_earned)
+- created_at
+- updated_at
+```
+
+#### Retailers Table
+```sql
+- id (primary key)
+- affiliate_id (foreign key)
+- business_name
+- contact_person
+- location
+- registration_date
+- total_orders
+- total_value
+- fao (alphanumeric, e.g., FAO1234)
+- cluster_manager_email
 - created_at
 - updated_at
 ```
@@ -184,7 +210,7 @@ To generate static HTML files for each route, you can use tools like:
 - `POST /api/auth/refresh` - Token refresh
 
 #### User Management
-- `GET /api/users` - List users (admin/backoffice)
+- `GET /api/users` - List users (admin/backoffice) with status filtering
 - `POST /api/users` - Create user
 - `PUT /api/users/:id` - Update user
 - `DELETE /api/users/:id` - Delete user
@@ -195,10 +221,14 @@ To generate static HTML files for each route, you can use tools like:
 - `POST /api/orders` - Create order
 - `PUT /api/orders/:id` - Update order
 
+#### Retailers
+- `GET /api/retailers` - List retailers for affiliate
+- `POST /api/retailers` - Create retailer
+- `PUT /api/retailers/:id` - Update retailer
+
 #### Reports
-- `GET /api/reports/daily-login` - Daily login report
-- `GET /api/reports/weekly-login` - Weekly login report
-- `GET /api/reports/affiliate-performance` - Affiliate performance
+- `GET /api/reports/affiliate-login` - Affiliate login report with date range filtering
+- `GET /api/reports/affiliate-login/export` - Export affiliate login report to Excel
 
 ## 📱 Mobile Responsiveness
 
@@ -230,9 +260,11 @@ const queryClient = new QueryClient({
 
 ### Key Query Keys
 - `['users']` - User list
+- `['users', { status: 'pending' }]` - Filtered user list
 - `['orders']` - Order list
+- `['retailers']` - Retailer list
 - `['affiliate', id]` - Affiliate details
-- `['reports', type]` - Report data
+- `['reports', type, params]` - Report data
 
 ## 🚀 Deployment & Environment
 
@@ -255,7 +287,7 @@ The project uses Vite for building. Key configuration in `vite.config.ts`:
 ### Demo Accounts
 - **Admin**: admin@example.com / password123
 - **Back Office**: backoffice@example.com / password123
-- **Affiliate**: affiliate@example.com / password123
+- **Affiliate**: affiliate@example.com / password123 (ID: APR20000)
 
 ### Test Cases
 1. **Authentication Flow**
@@ -267,23 +299,36 @@ The project uses Vite for building. Key configuration in `vite.config.ts`:
    - Create/edit/delete users
    - Permission validation
    - Data validation
+   - Status filtering functionality
 
 3. **Responsive Design**
    - Mobile navigation
    - Table responsiveness
    - Form layouts
 
+4. **New Features**
+   - KPI click navigation
+   - Date range report generation
+   - Excel export functionality
+   - Affiliate ID display
+   - Updated table columns
+
 ## 📋 Component Structure
 
 ### Layout Components
 - `DashboardLayout` - Main layout wrapper
-- `Navbar` - Top navigation
+- `Navbar` - Top navigation with user identity
 - `AppSidebar` - Collapsible sidebar
 
 ### Feature Components
-- `AffiliateTable` - User data table
-- `OrderTable` - Order management table
-- `StatCard` - Metric display cards
+- `AffiliateTable` - User data table with status filtering
+- `OrderTable` - Order management table with Agent ID
+- `StatCard` - Metric display cards with click handlers
+
+### Page Components
+- `BackOfficeCreateUser` - Dedicated user creation page
+- Enhanced dashboard pages with updated functionality
+- Updated reports pages with date range selection
 
 ### UI Components (Shadcn/ui)
 - All components follow Shadcn/ui patterns
@@ -319,32 +364,58 @@ yarn dev
 bun dev
 ```
 
+## 🎯 Recent Updates & New Features
+
+### Affiliate User Experience
+1. **Order History**: Replaced 'Commission Earned' with 'Agent ID' column
+2. **Retailer Management**: Added FAO and Cluster Manager columns
+3. **Dashboard Identity**: Prominently displays affiliate ID under user name
+
+### Back Office User Experience
+1. **Dashboard KPIs**: Made statistics clickable with smart navigation to filtered user lists
+2. **User Creation**: Dedicated page with proper back navigation (not to login)
+3. **Reports**: Streamlined to show only affiliate login reports with date range selection
+
+### Admin User Experience
+1. **Reports**: Updated to match back office functionality with date range selection and Excel export
+
+### Technical Improvements
+1. **Navigation Logic**: Enhanced with status-based filtering and proper routing
+2. **User Interface**: Improved mobile responsiveness and user experience
+3. **Data Structure**: Updated to support new column requirements and filtering
+
 ## 🎯 Next Steps for Development Team
 
 1. **Backend Development**
    - Implement API endpoints as specified
-   - Set up database with provided schema
+   - Set up database with updated schema including new columns
    - Configure authentication middleware
+   - Implement status-based filtering for user management
+   - Add Excel export functionality for reports
 
 2. **Integration**
    - Replace mock data with API calls
    - Implement error handling
    - Add loading states
+   - Connect date range filtering to backend
 
 3. **Testing**
    - Unit tests for components
    - Integration tests for user flows
-   - End-to-end testing
+   - End-to-end testing for new features
+   - Test KPI click navigation and filtering
 
 4. **Performance**
    - Optimize bundle size
    - Implement lazy loading
    - Add caching strategies
+   - Optimize table rendering for mobile
 
 5. **Security**
    - Input validation
    - XSS protection
    - CSRF protection
+   - Secure file export functionality
 
 ## 📞 Support & Questions
 
@@ -353,5 +424,6 @@ For any questions about the frontend implementation, refer to:
 - Tailwind CSS documentation
 - Shadcn/ui component library
 - React Router documentation
+- Updated user flow documentation
 
-This handover document provides a complete blueprint for continuing development of the RedCloud Affiliate Management System.
+This handover document provides a complete blueprint for continuing development of the RedCloud Affiliate Management System with all recent enhancements and user experience improvements.

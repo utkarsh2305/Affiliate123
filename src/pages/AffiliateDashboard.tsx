@@ -11,6 +11,12 @@ export const AffiliateDashboard: React.FC = () => {
       <div className="px-6 py-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Affiliate Dashboard</h1>
+          <div className="flex items-center space-x-4 mb-4">
+            <p className="text-gray-600">Welcome back, John Doe</p>
+            <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+              ID: APR20000
+            </div>
+          </div>
           <p className="text-gray-600">Track your performance and manage your affiliate activities.</p>
         </div>
 
