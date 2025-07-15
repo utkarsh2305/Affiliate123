@@ -15,7 +15,8 @@ const mockOrders: Order[] = [
     productName: 'Laptop Pro 15"',
     orderAmount: 450000,
     status: 'Completed',
-    affiliate: 'John Doe'
+    affiliate: 'John Doe',
+    fao: 'FAO1234'
   },
   {
     id: 'ORD-002',
@@ -24,7 +25,8 @@ const mockOrders: Order[] = [
     productName: 'Smartphone X',
     orderAmount: 280000,
     status: 'Pending',
-    affiliate: 'Jane Smith'
+    affiliate: 'Jane Smith',
+    fao: 'FAO5678'
   },
   {
     id: 'ORD-003',
@@ -33,7 +35,8 @@ const mockOrders: Order[] = [
     productName: 'Tablet Air',
     orderAmount: 320000,
     status: 'Processing',
-    affiliate: 'John Doe'
+    affiliate: 'John Doe',
+    fao: 'FAO9012'
   }
 ];
 
