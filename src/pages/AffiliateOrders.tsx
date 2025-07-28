@@ -32,12 +32,6 @@ const orders = [
 ];
 
 export const AffiliateOrders: React.FC = () => {
-  const getDaysSinceOrderColor = (days: number) => {
-    if (days >= 10) {
-      return 'text-red-600 font-semibold';
-    }
-    return 'text-gray-900';
-  };
 
   return (
     <DashboardLayout userType="affiliate">
@@ -61,7 +55,6 @@ export const AffiliateOrders: React.FC = () => {
                     <th className="text-left p-4 font-medium">Order Value</th>
                     <th className="text-left p-4 font-medium">Order Assigned to</th>
                     <th className="text-left p-4 font-medium">Status</th>
-                    <th className="text-left p-4 font-medium">Days Since Order</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -78,9 +71,6 @@ export const AffiliateOrders: React.FC = () => {
                         >
                           {order.status}
                         </Badge>
-                      </td>
-                      <td className={`p-4 ${getDaysSinceOrderColor(order.daysSinceOrder)}`}>
-                        {order.daysSinceOrder}
                       </td>
                     </tr>
                   ))}

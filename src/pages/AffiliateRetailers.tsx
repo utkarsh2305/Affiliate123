@@ -9,40 +9,41 @@ import { Plus } from 'lucide-react';
 const retailers = [
   {
     id: 'RET-001',
-    fao: 'Sarah Ahmed - +234-801-234-5678',
     clusterManager: 'cluster.manager1@redcloud.com',
     businessName: 'ABC Electronics Store',
     contactPerson: 'John Okoro',
     location: 'Lagos, Nigeria',
     registrationDate: '2024-01-15',
-    totalOrders: 12,
-    totalValue: '₦3,200,000'
+    daysSinceLastOrder: 8
   },
   {
     id: 'RET-002',
-    fao: 'Michael Chen - +234-802-345-6789',
     clusterManager: 'cluster.manager2@redcloud.com',
     businessName: 'Tech Solutions Ltd',
     contactPerson: 'Mary Adebayo',
     location: 'Abuja, Nigeria',
     registrationDate: '2024-01-10',
-    totalOrders: 8,
-    totalValue: '₦2,100,000'
+    daysSinceLastOrder: 12
   },
   {
     id: 'RET-003',
-    fao: 'David Okafor - +234-803-456-7890',
     clusterManager: 'cluster.manager3@redcloud.com',
     businessName: 'Digital Hub Enterprise',
     contactPerson: 'Ibrahim Hassan',
     location: 'Kano, Nigeria',
     registrationDate: '2024-01-08',
-    totalOrders: 15,
-    totalValue: '₦4,500,000'
+    daysSinceLastOrder: 5
   }
 ];
 
 export const AffiliateRetailers: React.FC = () => {
+  const getDaysSinceLastOrderColor = (days: number) => {
+    if (days >= 10) {
+      return 'text-red-600 font-semibold';
+    }
+    return 'text-gray-900';
+  };
+
   return (
     <DashboardLayout userType="affiliate">
       <div className="px-6 py-8">
@@ -67,30 +68,26 @@ export const AffiliateRetailers: React.FC = () => {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-4 font-medium">Retailer ID</th>
-                    <th className="text-left p-4 font-medium">Order Assigned to</th>
                     <th className="text-left p-4 font-medium">Cluster Manager</th>
                     <th className="text-left p-4 font-medium">Business Name</th>
                     <th className="text-left p-4 font-medium">Contact Person</th>
                     <th className="text-left p-4 font-medium">Location</th>
                     <th className="text-left p-4 font-medium">Registration Date</th>
-                    <th className="text-left p-4 font-medium">Total Orders</th>
-                    <th className="text-left p-4 font-medium">Total Value</th>
+                    <th className="text-left p-4 font-medium">Days Since Last Order</th>
                   </tr>
                 </thead>
                 <tbody>
                   {retailers.map((retailer) => (
                     <tr key={retailer.id} className="border-b hover:bg-gray-50">
                       <td className="p-4 font-medium">{retailer.id}</td>
-                      <td className="p-4 font-medium text-blue-600">{retailer.fao}</td>
                       <td className="p-4 text-sm">{retailer.clusterManager}</td>
                       <td className="p-4">{retailer.businessName}</td>
                       <td className="p-4">{retailer.contactPerson}</td>
                       <td className="p-4">{retailer.location}</td>
                       <td className="p-4">{retailer.registrationDate}</td>
-                      <td className="p-4">
-                        <Badge variant="secondary">{retailer.totalOrders}</Badge>
+                      <td className={`p-4 ${getDaysSinceLastOrderColor(retailer.daysSinceLastOrder)}`}>
+                        {retailer.daysSinceLastOrder}
                       </td>
-                      <td className="p-4 font-medium text-green-600">{retailer.totalValue}</td>
                     </tr>
                   ))}
                 </tbody>
