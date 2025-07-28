@@ -16,7 +16,7 @@ const mockOrders: Order[] = [
     orderAmount: 450000,
     status: 'Completed',
     affiliate: 'John Doe',
-    fao: 'FAO1234'
+    fao: 'Sarah Ahmed - +234-801-234-5678'
   },
   {
     id: 'ORD-002',
@@ -26,7 +26,7 @@ const mockOrders: Order[] = [
     orderAmount: 280000,
     status: 'Pending',
     affiliate: 'Jane Smith',
-    fao: 'FAO5678'
+    fao: 'Michael Chen - +234-802-345-6789'
   },
   {
     id: 'ORD-003',
@@ -36,7 +36,7 @@ const mockOrders: Order[] = [
     orderAmount: 320000,
     status: 'Processing',
     affiliate: 'John Doe',
-    fao: 'FAO9012'
+    fao: 'David Okafor - +234-803-456-7890'
   }
 ];
 

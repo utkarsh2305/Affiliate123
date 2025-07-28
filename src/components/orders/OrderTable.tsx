@@ -35,7 +35,7 @@ export const OrderTable: React.FC<OrderTableProps> = ({ orders }) => {
             <TableHead>Product Name</TableHead>
             <TableHead>Order Amount</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>FAO</TableHead>
+            <TableHead>Order Assigned to</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

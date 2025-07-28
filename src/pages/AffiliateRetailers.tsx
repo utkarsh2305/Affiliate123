@@ -9,7 +9,7 @@ import { Plus } from 'lucide-react';
 const retailers = [
   {
     id: 'RET-001',
-    fao: 'FAO1234',
+    fao: 'Sarah Ahmed - +234-801-234-5678',
     clusterManager: 'cluster.manager1@redcloud.com',
     businessName: 'ABC Electronics Store',
     contactPerson: 'John Okoro',
@@ -20,7 +20,7 @@ const retailers = [
   },
   {
     id: 'RET-002',
-    fao: 'FAO5678',
+    fao: 'Michael Chen - +234-802-345-6789',
     clusterManager: 'cluster.manager2@redcloud.com',
     businessName: 'Tech Solutions Ltd',
     contactPerson: 'Mary Adebayo',
@@ -31,7 +31,7 @@ const retailers = [
   },
   {
     id: 'RET-003',
-    fao: 'FAO9012',
+    fao: 'David Okafor - +234-803-456-7890',
     clusterManager: 'cluster.manager3@redcloud.com',
     businessName: 'Digital Hub Enterprise',
     contactPerson: 'Ibrahim Hassan',
@@ -67,7 +67,7 @@ export const AffiliateRetailers: React.FC = () => {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-4 font-medium">Retailer ID</th>
-                    <th className="text-left p-4 font-medium">FAO</th>
+                    <th className="text-left p-4 font-medium">Order Assigned to</th>
                     <th className="text-left p-4 font-medium">Cluster Manager</th>
                     <th className="text-left p-4 font-medium">Business Name</th>
                     <th className="text-left p-4 font-medium">Contact Person</th>

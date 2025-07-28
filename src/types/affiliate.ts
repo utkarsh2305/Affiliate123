@@ -22,7 +22,7 @@ export interface Order {
   orderAmount: number;
   status: 'Completed' | 'Pending' | 'Processing' | 'Cancelled';
   affiliate: string;
-  fao: string;
+  fao: string; // Order Assigned to: person's name and mobile number
   retailerId?: string;
   voucherCode?: string;
 }

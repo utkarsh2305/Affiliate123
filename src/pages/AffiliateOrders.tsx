@@ -9,7 +9,7 @@ const orders = [
     id: 'ORD-001',
     orderDate: '2024-01-15',
     orderValue: '₦275,000',
-    fao: 'FAO1234',
+    fao: 'Sarah Ahmed - +234-801-234-5678',
     status: 'Completed',
     daysSinceOrder: 5
   },
@@ -17,7 +17,7 @@ const orders = [
     id: 'ORD-002',
     orderDate: '2024-01-12',
     orderValue: '₦450,000',
-    fao: 'FAO5678',
+    fao: 'Michael Chen - +234-802-345-6789',
     status: 'Processing',
     daysSinceOrder: 8
   },
@@ -25,7 +25,7 @@ const orders = [
     id: 'ORD-003',
     orderDate: '2024-01-10',
     orderValue: '₦320,000',
-    fao: 'FAO9012',
+    fao: 'David Okafor - +234-803-456-7890',
     status: 'Completed',
     daysSinceOrder: 12
   }
@@ -59,7 +59,7 @@ export const AffiliateOrders: React.FC = () => {
                     <th className="text-left p-4 font-medium">Order ID</th>
                     <th className="text-left p-4 font-medium">Order Date</th>
                     <th className="text-left p-4 font-medium">Order Value</th>
-                    <th className="text-left p-4 font-medium">FAO</th>
+                    <th className="text-left p-4 font-medium">Order Assigned to</th>
                     <th className="text-left p-4 font-medium">Status</th>
                     <th className="text-left p-4 font-medium">Days Since Order</th>
                   </tr>
