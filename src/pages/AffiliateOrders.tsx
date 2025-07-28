@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 const orders = [
   {
     id: 'ORD-001',
+    buyerName: 'Alice Johnson',
     orderDate: '2024-01-15',
     orderValue: '₦275,000',
     fao: 'Sarah Ahmed - +234-801-234-5678',
@@ -15,6 +16,7 @@ const orders = [
   },
   {
     id: 'ORD-002',
+    buyerName: 'Bob Wilson',
     orderDate: '2024-01-12',
     orderValue: '₦450,000',
     fao: 'Michael Chen - +234-802-345-6789',
@@ -23,6 +25,7 @@ const orders = [
   },
   {
     id: 'ORD-003',
+    buyerName: 'Carol Brown',
     orderDate: '2024-01-10',
     orderValue: '₦320,000',
     fao: 'David Okafor - +234-803-456-7890',
@@ -51,6 +54,7 @@ export const AffiliateOrders: React.FC = () => {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-4 font-medium">Order ID</th>
+                    <th className="text-left p-4 font-medium">Buyer Name</th>
                     <th className="text-left p-4 font-medium">Order Date</th>
                     <th className="text-left p-4 font-medium">Order Value</th>
                     <th className="text-left p-4 font-medium">Order Assigned to</th>
@@ -61,6 +65,7 @@ export const AffiliateOrders: React.FC = () => {
                   {orders.map((order) => (
                     <tr key={order.id} className="border-b hover:bg-gray-50">
                       <td className="p-4 font-medium">{order.id}</td>
+                      <td className="p-4">{order.buyerName}</td>
                       <td className="p-4">{order.orderDate}</td>
                       <td className="p-4">{order.orderValue}</td>
                       <td className="p-4 font-medium text-blue-600">{order.fao}</td>
